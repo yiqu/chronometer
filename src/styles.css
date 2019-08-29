@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto:100i,300i,300,400,400i');
+@import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+@import url('https://fonts.googleapis.com/css?family=Orbitron');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+p {
+  font-family: 'Roboto', sans-serif;
+}
+.center-text {
+  text-align: center;
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-orb {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-thin {
+  font-weight: 300;
+}
+
+.font-indie {
+  font-family: 'Indie Flower', cursive;
+}
+
+.indie-font-25 {
+  font-size: 25px;
+}

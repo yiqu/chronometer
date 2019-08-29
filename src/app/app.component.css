@@ -1,0 +1,29 @@
+.wrapper {
+  min-height: calc(100vh - 70px);
+}
+
+.footer {
+  height: 50px;
+}
+
+.p-top {
+  padding-top: 10px;
+}
+
+.m-top {
+  margin-top: 10px;
+}
+
+.pull-right {
+  float: right;
+}
+
+.align-midle {
+  vertical-align: text-top;
+}
+
+.footer-font {
+  background-color: #ffffff;
+  font-family: 'Indie Flower', cursive;
+  font-size: 20px;
+}
