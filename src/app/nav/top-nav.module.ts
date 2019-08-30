@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './top-nav.component';
 import { TimeModule } from '../shared/time/time.module';
+import { DirectivesBarrelModule } from '../shared/directives/dir-barrel.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TimeModule } from '../shared/time/time.module';
     CommonModule , 
     FormsModule, 
     RouterModule,
-    TimeModule
+    TimeModule,
+    DirectivesBarrelModule
   ],
 
   exports: [
