@@ -6,16 +6,16 @@ import { CoreComponent } from './core/core.component';
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
-  {
     path: 'home',
     component: CoreComponent
   },
   { path: 'about', 
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule) 
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
   {
     path: '**',

@@ -1,0 +1,11 @@
+.top-nav {
+  background-color: #ffffff;
+}
+
+.active-ul {
+  text-decoration: underline;
+}
+
+.disabled-link {
+  pointer-events: none;
+}

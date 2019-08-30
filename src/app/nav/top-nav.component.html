@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light sticky-top top-nav no-padding pt-3 mb-3 font-secondary font-25">
+  <a class="navbar-brand" [routerLink]="['/']">
+    <img src="assets/stopwatch.png" width="30" height="30" class="d-inline-block align-top" alt="watch logo">
+    <span class="font-25 pl-1">Chronometer</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" 
+    data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
+    aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a *ngFor="let item of navItemsList" 
+        [ngClass]="{'nav-item':true, 'nav-link':true, 'disabled-link disabled':item.disabled}" 
+        [routerLink]="item.url"
+        [preserveFragment]="false"
+        [queryParamsHandling]=""
+        routerLinkActive="active active-ul">
+          {{item.display}}
+      </a>
+    </div>
+  </div>
+  <app-shared-time></app-shared-time>
+</nav>
