@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TimeService } from '../shared/services/time.service';
 
 @Component({
   selector: 'app-core',
@@ -6,8 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./core.component.css']
 })
 
-export class CoreComponent implements OnInit {
-  constructor() { }
+export class CoreComponent implements OnInit, OnDestroy {
 
-  ngOnInit() { }
+  constructor(public ts: TimeService) {
+
+  }
+
+  ngOnInit() {
+    this.ts.startCurrentTime();
+  }
+
+  ngOnDestroy() {
+    this.ts.stopCurrentTime();
+  }
 }
