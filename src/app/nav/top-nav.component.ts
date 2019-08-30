@@ -14,7 +14,7 @@ const NAV_ITEM_LIST = [
 export class NavBarComponent implements OnInit {
 
   public navItemsList: NavItem[] = [];
-  private menuOpen: boolean = false;
+  public menuOpen: boolean = false;
 
   constructor() {
     this.navItemsList.push(...NAV_ITEM_LIST);
