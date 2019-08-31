@@ -1,11 +1,34 @@
 <div class="container">
   <div class="row">
+    
+    <!-- Timer side -->
     <div class="col">
-      <div class="font-secondary center-text">Ready, set...</div>
+      <h1 class="font-secondary center-text">Ready, set...</h1>
+      <div>
+        <div class="row">
+          <div class="col">
+            {{timerInMilli}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 mb-2">
+            <button (click)="toggleStart()" class="toggle-width"
+              mat-flat-button [color]="timerStarted ? 'accent' : 'primary'">
+                {{timerStarted | buttonToggleText}}
+            </button>
+          </div>
+          <div class="col-sm">
+            <button (click)="toggleReset()" class="toggle-width"
+              mat-flat-button color="primary">{{resetLapText}}</button>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Left side -->
     <div class="col border-left">
-      <div class="font-secondary center-text">History</div>
+      <h1 class="font-secondary center-text">History</h1>
     </div>
   </div>
-
 </div>
