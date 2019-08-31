@@ -1,11 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:100i,300i,300,400,400i');
 @import url('https://fonts.googleapis.com/css?family=Kalam:400,700&display=swap');
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 p {
   font-family: 'Roboto', sans-serif;
 }
+
+h1 {
+  font-size: 25px !important;
+  font-family: 'Kalam', cursive !important;
+}
+
 .center-text {
   text-align: center;
 }
