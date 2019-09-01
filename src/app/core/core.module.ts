@@ -5,6 +5,7 @@ import { CoreComponent } from './core.component';
 import { NotFoundComponent } from '../404/404.component';
 import { MaterialModule } from '../shared/material-barrel.module';
 import { PipesBarrelModule } from '../shared/pipes/pipes-barrel.module';
+import { SnackBarBarrelModule } from '../shared/snack-bars/snack-bars.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PipesBarrelModule } from '../shared/pipes/pipes-barrel.module';
     CommonModule , 
     FormsModule, 
     MaterialModule,
-    PipesBarrelModule
+    PipesBarrelModule,
+    SnackBarBarrelModule
   ],
 
   exports: [

@@ -3,6 +3,8 @@ import { TimeService } from '../shared/services/time.service';
 import { Observable, Subject, from, of, Subscription, interval, timer } from 'rxjs';
 import { delay, concatMap, map, takeUntil, startWith, timeInterval } from 'rxjs/operators';
 import * as moment from 'moment';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ResetLapSnackBarComponent } from '../shared/snack-bars/reset-lap.component';
 
 const TIMER_START: string = "Start";
 const TIMER_STOP: string = "Stop";
@@ -15,6 +17,8 @@ const TIMER_STOP: string = "Stop";
 
 export class CoreComponent implements OnInit, OnDestroy {
 
+  snackBarDuration = 1;
+
   timer$: Observable<number>;
   timerSub: Subscription = new Subscription();
   timerInMilli: number = 0;
@@ -22,7 +26,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   resetLapText: string = "Lap";
   timerStarted: boolean = false;
 
-  constructor(public ts: TimeService) {
+  constructor(public ts: TimeService, private sb: MatSnackBar) {
     this.timer$ = interval(1000).pipe(
     );
   }
@@ -58,6 +62,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   toggleReset() {
+    this.openSnackBar();
     if (this.timerStarted) {
       // lap
       console.log("lapping: ",this.timerInMilli)
@@ -65,6 +70,7 @@ export class CoreComponent implements OnInit, OnDestroy {
     } else {
       this.resetTimer();
     }
+    
   }
 
   private resetTimer() {
@@ -80,6 +86,14 @@ export class CoreComponent implements OnInit, OnDestroy {
 
   handleTimerComplete() {
     console.log("interval completed");
+  }
+
+  openSnackBar() {
+    this.sb.openFromComponent(ResetLapSnackBarComponent, {
+      duration: this.snackBarDuration * 1000,
+      data: this.resetLapText,
+      panelClass: 'timer-snack-bar'
+    });
   }
 
 }
