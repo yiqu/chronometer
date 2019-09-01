@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
-import { TimeMomentFormat } from './time-format.pipe';
+import { TimeMomentFormat, TimeDisplayFormat } from './time-format.pipe';
 import { timerButtonTextPipe } from './timer-button.pipe';
 
 @NgModule({
   imports: [],
   exports: [
     TimeMomentFormat,
-    timerButtonTextPipe
+    timerButtonTextPipe,
+    TimeDisplayFormat
   ],
 
   declarations: [
     TimeMomentFormat,
-    timerButtonTextPipe
+    timerButtonTextPipe,
+    TimeDisplayFormat
   ],
 
   providers: [],
