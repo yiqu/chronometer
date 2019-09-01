@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TimeService } from '../shared/services/time.service';
 import { Observable, Subject, from, of, Subscription, interval, timer } from 'rxjs';
-import { delay, concatMap, map, takeUntil, startWith } from 'rxjs/operators';
+import { delay, concatMap, map, takeUntil, startWith, timeInterval } from 'rxjs/operators';
 import * as moment from 'moment';
 
 const TIMER_START: string = "Start";
@@ -23,8 +23,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   timerStarted: boolean = false;
 
   constructor(public ts: TimeService) {
-    this.timer$ = timer(0, 1000).pipe(
-      startWith(0)
+    this.timer$ = interval(1000).pipe(
     );
   }
 
@@ -76,8 +75,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   handleTimerNext(val: number) {
-    this.timerInMilli = val;
-    console.log(val)
+    this.timerInMilli++;
   }
 
   handleTimerComplete() {

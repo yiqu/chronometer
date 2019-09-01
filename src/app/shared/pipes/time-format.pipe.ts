@@ -12,3 +12,20 @@ export class TimeMomentFormat implements PipeTransform {
     return "Loading...";
   }
 }
+
+@Pipe({name: 'timeFormat'})
+export class TimeDisplayFormat implements PipeTransform {
+  transform(value: number, format?: string) {
+    let dur = moment.duration(value * 1000);
+    let day = dur.days();
+    let hour = dur.hours();
+    let min = dur.minutes();
+    let sec = dur.seconds();
+    let ms = dur.milliseconds();
+    
+    return "" + (day > 0 ? (day + " : ") : "") + 
+      (hour < 10 ? "0" : "") + hour + ":" +
+      (min < 10 ? "0" : "") + min + ":" + 
+      (sec < 10 ? "0" : "") + sec;
+  }
+}

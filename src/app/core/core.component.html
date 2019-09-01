@@ -2,22 +2,22 @@
   <div class="row">
     
     <!-- Timer side -->
-    <div class="col">
+    <div class="col mt-5">
       <h1 class="font-secondary center-text">Ready, set...</h1>
       <div>
-        <div class="row">
+        <div class="row text-center">
           <div class="col">
-            {{timerInMilli}}
+            <span class="time-display font-roboto">{{timerInMilli | timeFormat}}</span>
           </div>
         </div>
-        <div class="row">
-          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-4 mb-2">
-            <button (click)="toggleStart()" class="toggle-width"
-              mat-flat-button [color]="timerStarted ? 'accent' : 'primary'">
-                {{timerStarted | buttonToggleText}}
+        <div class="row justify-content-center">
+          <div class="">
+            <button (click)="toggleStart()" mat-flat-button color="primary"
+              [ngClass]="{'toggle-width': true, 'start-color': !timerStarted, 'stop-color': timerStarted}">
+              {{timerStarted | buttonToggleText}}
             </button>
           </div>
-          <div class="col-sm">
+          <div class="reset-lap">
             <button (click)="toggleReset()" class="toggle-width"
               mat-flat-button color="primary">{{resetLapText}}</button>
           </div>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- Left side -->
-    <div class="col border-left">
+    <div class="col border-left mt-5">
       <h1 class="font-secondary center-text">History</h1>
     </div>
   </div>
