@@ -4,11 +4,13 @@
     <span class="font-25 pl-1">Chronometer</span>
     <app-shared-time></app-shared-time>
   </a>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" 
     data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
     aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
       <span class="navbar-toggler-icon"></span>
   </button>
+
   <div class="collapse navbar-collapse" [bsDropDown]="menuOpen" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <a *ngFor="let item of navItemsList" 
@@ -21,4 +23,12 @@
       </a>
     </div>
   </div>
+
+  <a [routerLink]="['/home']" [queryParams]="{loginDialog: true}" 
+    queryParamsHandling="merge">
+      <div class="login-section">
+        <i class="material-icons lg-icon">account_circle</i>
+        <span>Login</span>
+      </div>
+  </a>
 </nav>

@@ -6,6 +6,7 @@ import { NotFoundComponent } from '../404/404.component';
 import { MaterialModule } from '../shared/material-barrel.module';
 import { PipesBarrelModule } from '../shared/pipes/pipes-barrel.module';
 import { SnackBarBarrelModule } from '../shared/snack-bars/snack-bars.module';
+import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,10 @@ import { SnackBarBarrelModule } from '../shared/snack-bars/snack-bars.module';
   ],
   
   providers: [
+  ],
+
+  entryComponents: [
+    LoginDialogComponent
   ]
 
 })

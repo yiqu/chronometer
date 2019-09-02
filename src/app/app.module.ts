@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { TopNavModule } from './nav/top-nav.module';
 import { ResetLapSnackBarComponent } from './shared/snack-bars/reset-lap.component';
+import { DialogBarrelModule } from './shared/dialogs/dialog-barrel.module';
+import { LoginDialogComponent } from './shared/dialogs/login/login-dialog.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -17,13 +20,18 @@ import { ResetLapSnackBarComponent } from './shared/snack-bars/reset-lap.compone
     BrowserAnimationsModule,
     CoreModule,
     TopNavModule,
+    DialogBarrelModule,
     AppRoutingModule
   ],
 
-  providers: [],
+  providers: [
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: {name: 'Guest'} },
+  ],
 
   entryComponents: [
-    ResetLapSnackBarComponent
+    ResetLapSnackBarComponent,
+    LoginDialogComponent
   ],
 
   bootstrap: [AppComponent]

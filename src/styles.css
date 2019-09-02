@@ -49,3 +49,12 @@ h1 {
   min-width: 200px !important;
   background-color: #2952a3 !important;
 }
+
+.lg-icon {
+  font-size: 40px;
+}
+
+.login-overlay-background {
+  background: #595959;
+  opacity: 0.9 !important;
+}
