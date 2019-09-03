@@ -26,7 +26,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
   providers: [
     { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: {name: 'Guest'} },
+    { provide: MAT_DIALOG_DATA, useValue: {name: 'guest'} },
   ],
 
   entryComponents: [

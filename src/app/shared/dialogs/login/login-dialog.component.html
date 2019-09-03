@@ -1,13 +1,24 @@
-<h1 mat-dialog-title>Hi {{data.name}}</h1>
+<h1 mat-dialog-title class="text-center">
+  <img src="assets/stopwatch.png" width="30" height="30" class="d-inline-block align-top" alt="watch logo">
+  <div class="">
+    Chronometer
+  </div>
+</h1>
 
-<div mat-dialog-content>
+<div mat-dialog-content class="font-roboto text-center mb-20">
+  <h2 class="signin-header">
+    <span>Sign in</span>
+  </h2>
+  <div class="signin-subheader mb-20">Use your Chronometer Account</div>
   <mat-form-field>
-    <input matInput cdkFocusInitial [(ngModel)]="data.name">
+    <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="data.name" 
+      (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
 </div>
 
-<div mat-dialog-actions>
+<div mat-dialog-actions class="font-roboto justify-content-center">
   <!-- <button mat-button (click)="onDefaultClick()">Login as guest.</button> -->
-  <button mat-button [mat-dialog-close]="defaultGuest">Login as Guest</button>
-  <button mat-button [mat-dialog-close]="data">Ok</button>
+  <button mat-flat-button [mat-dialog-close]="defaultGuest" color="primary">Just visitin'</button>
+  <button mat-flat-button (click)="onLogin()" [disabled]="loginDisable"
+    color="primary">Login</button>
 </div>

@@ -1,5 +1,5 @@
-export class LoginDialogData {
-  constructor(public name: string) {
+export class User {
+  constructor(public name: string, public admin: boolean = false, public isUser: boolean = false) {
     
   }
 }

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavItem } from '../shared/model/nav-item.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
-import { LoginDialogData } from '../shared/model/login-dialog.model';
+import { User } from '../shared/model/login-dialog.model';
 import { LoginService } from '../shared/services/login.service';
 
 
@@ -44,7 +44,7 @@ export class NavBarComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogComponent, {
-      width: '250px',
+      width: '350px',
       autoFocus: true,
       disableClose: true,
       panelClass: 'login-overlay',
@@ -53,8 +53,7 @@ export class NavBarComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed', result);
-      this.ls.userData = result;
+      this.ls.userLogin(result);
     });
   }
 
