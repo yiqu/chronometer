@@ -27,7 +27,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   timerStarted: boolean = false;
 
   constructor(public ts: TimeService, private sb: MatSnackBar) {
-    this.timer$ = interval(10).pipe(
+    this.timer$ = interval(1000).pipe(
     );
   }
 
