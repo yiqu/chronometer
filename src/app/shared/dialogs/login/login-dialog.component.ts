@@ -21,7 +21,7 @@ export class LoginDialogComponent {
     this.dialogRef.close();
   }
 
-  onLoginNameChange() {
+  onLoginNameChange(data) {
     this.loginDisable = this.disableLogin();
   }
 
