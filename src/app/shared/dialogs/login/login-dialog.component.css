@@ -9,3 +9,14 @@
 .mb-20 {
   margin-bottom: 20px;
 }
+
+.new-user-label {
+  font-size: 13px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.new-user-label:hover {
+  text-decoration: underline;
+  color: #000;
+}

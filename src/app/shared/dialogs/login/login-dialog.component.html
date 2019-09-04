@@ -5,20 +5,25 @@
   </div>
 </h1>
 
-<div mat-dialog-content class="font-roboto text-center mb-20">
+<div mat-dialog-content class="font-roboto text-center">
   <h2 class="signin-header">
-    <span>Sign in</span>
+    <span>{{title}}</span>
   </h2>
-  <div class="signin-subheader mb-20">Use your Chronometer Account</div>
+  <div class="signin-subheader mb-20">{{subTitle}}</div>
   <mat-form-field>
-    <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="data.name" 
+    <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="userData.name" 
       (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
+
+  <div *ngIf="!registerMode" class="mb-20">
+    <span class="new-user-label" (click)="userIsNew()">I am new...</span>
+  </div>
 </div>
 
 <div mat-dialog-actions class="font-roboto justify-content-center">
   <!-- <button mat-button (click)="onDefaultClick()">Login as guest.</button> -->
-  <button mat-flat-button [mat-dialog-close]="defaultGuest" color="primary">Just visitin'</button>
-  <button mat-flat-button (click)="onLogin()" [disabled]="loginDisable"
-    color="primary">Login</button>
+  <!-- <button mat-flat-button [mat-dialog-close]="defaultGuest" color="primary">{{btnCancel}}</button> -->
+  <button mat-flat-button (click)="onCancel()" color="accent">{{btnCancel}}</button>
+  <button mat-flat-button (click)="onConfirm()" [disabled]="loginDisable"
+    color="primary">{{btnConfirm}}</button>
 </div>
