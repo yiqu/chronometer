@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from '../model/login-dialog.model';
+import { User, UserInfo} from '../model/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable({
@@ -8,17 +8,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginService {
 
   userData: User;
-  userName: string = "";
 
   constructor(public router: Router, public route: ActivatedRoute) {
-    this.userData = new User(null);
+    // create init user
+    this.userData = new User();
+    this.userData.setUser(new UserInfo());
   }
 
   userLogin(data: User) {
     this.userData = data;
-    console.log(this.userData)
     this.router.navigate(['/home'], {
-      queryParams: {user: this.userData.name},
+      queryParams: {user: this.userData.user.id},
       queryParamsHandling: ''
     });
   }
