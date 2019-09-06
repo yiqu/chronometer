@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { NavItem } from '../shared/model/nav-item.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
-import { User } from '../shared/model/login-dialog.model';
 import { LoginService } from '../shared/services/login.service';
 
 
@@ -54,6 +53,7 @@ export class NavBarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.ls.userLogin(result);
+      console.log(this.ls.userData)
     });
   }
 

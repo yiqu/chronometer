@@ -11,7 +11,7 @@
   </h2>
   <div class="signin-subheader mb-20">{{subTitle}}</div>
   <mat-form-field>
-    <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="userData.name" 
+    <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="currentUser.user.id" 
       (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
 
