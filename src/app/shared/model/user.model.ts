@@ -16,4 +16,9 @@ export class User {
   public setUser(u: UserInfo) {
     this.user = u;
   }
+
+  public setNoName() {
+    this.user.firstName = "Not set";
+    this.user.lastName = "Not set";
+  }
 }

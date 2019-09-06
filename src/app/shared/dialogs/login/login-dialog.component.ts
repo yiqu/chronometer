@@ -3,6 +3,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { User, UserInfo} from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { HttpResponse } from '@angular/common/http';
+import { take, map, switchMap } from 'rxjs/operators';
+import { empty, of } from 'rxjs';
+import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login-dialog',
@@ -23,7 +27,7 @@ export class LoginDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
-    public rs: CrudRestServie) {
+    public rs: CrudRestServie, public ts: ToastrService) {
 
       this.currentUser = data;
       this.loginDisable = this.disableLogin();
@@ -56,17 +60,35 @@ export class LoginDialogComponent {
 
   onConfirm() {
     let url: string = "chronometer.json";
-    this.rs.getData(url).subscribe({
-      next: (res: HttpResponse<any>) => {
-        console.log(res)
+    this.rs.getData(url)
+    .pipe(
+      take(1),
+      switchMap((res: HttpResponse<any>) => {
+        let arr: User[] = [];
+        if (res.body) {
+          for (let key in res.body) {
+            let aUser: User = res.body[key];
+            if (aUser.user.id === this.currentUser.user.id) {
+              this.ts.info("This user name already exists.", "Error");
+              return empty();
+            }
+          }
+          this.converCurrentUser();
+          return this.rs.postData(this.currentUser, url);
+        }
+      })
+
+    )
+    .subscribe({
+      next: (res: any) => {
+        this.ts.success("Creation was a great success! " + res.body.name, "Welcome");
       },
       error: (err) => {
-
       },
       complete: () => {
-        console.log("done")
+        // close dialog
       }
-    })
+    });
   }
 
   onCancel() {
@@ -104,6 +126,12 @@ export class LoginDialogComponent {
 
   getRandomUserName() {
     return (Math.random() + "").slice(5);
+  }
+
+  converCurrentUser() {
+    this.currentUser.admin = false;
+    this.currentUser.isUser = true;
+    this.currentUser.setNoName();
   }
 
 }
