@@ -3,8 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { User, UserInfo} from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { HttpResponse } from '@angular/common/http';
-import { take, map, switchMap } from 'rxjs/operators';
-import { empty, of } from 'rxjs';
+import { take, map, switchMap, exhaustMap } from 'rxjs/operators';
+import { empty, of, throwError } from 'rxjs';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 
@@ -62,7 +62,6 @@ export class LoginDialogComponent {
     let url: string = "chronometer.json";
     this.rs.getData(url)
     .pipe(
-      take(1),
       switchMap((res: HttpResponse<any>) => {
         let arr: User[] = [];
         if (res.body) {
@@ -76,14 +75,15 @@ export class LoginDialogComponent {
           this.converCurrentUser();
           return this.rs.postData(this.currentUser, url);
         }
+        return throwError('Data of NULL was returned');
       })
-
     )
     .subscribe({
       next: (res: any) => {
         this.ts.success("Creation was a great success! " + res.body.name, "Welcome");
       },
       error: (err) => {
+        this.ts.error("Server error: " + err, "Error");
       },
       complete: () => {
         // close dialog
