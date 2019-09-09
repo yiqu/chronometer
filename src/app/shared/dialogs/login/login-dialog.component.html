@@ -23,7 +23,7 @@
 <div mat-dialog-actions class="font-roboto justify-content-center">
   <!-- <button mat-button (click)="onDefaultClick()">Login as guest.</button> -->
   <!-- <button mat-flat-button [mat-dialog-close]="defaultGuest" color="primary">{{btnCancel}}</button> -->
-  <button mat-flat-button (click)="onCancel()" color="accent">{{btnCancel}}</button>
+  <button mat-flat-button (click)="onCancel()" [disabled]="registerMode && loginRequesting" color="accent">{{btnCancel}}</button>
 
   <button [ngStyle]="{'display':registerMode?'initial':'none'}" #confirmButton mat-flat-button 
     [disabled]="loginDisable || loginRequesting" color="primary">Register</button>
