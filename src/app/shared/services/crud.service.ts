@@ -36,7 +36,7 @@ export class CrudRestServie {
       .pipe(
         timeout(DEFAULT_TIMEOUT),
         retryWhen(errors => this.handleError(errors)),
-       // delay(3000)
+        delay(environment.restDelay)
       ) 
   }
 
@@ -68,7 +68,7 @@ export class CrudRestServie {
       .pipe(
         timeout(DEFAULT_TIMEOUT),
         retryWhen(errors => this.handleError(errors)),
-        delay(4000)
+        //delay(environment.restDelay)
       )
   }
 

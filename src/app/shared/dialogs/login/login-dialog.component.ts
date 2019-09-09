@@ -1,29 +1,36 @@
-import {Component, Inject} from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnInit, 
+  AfterViewInit, OnDestroy } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { User, UserInfo} from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { HttpResponse } from '@angular/common/http';
-import { take, map, switchMap, exhaustMap } from 'rxjs/operators';
-import { empty, of, throwError } from 'rxjs';
+import { take, map, switchMap, exhaustMap, concatMap, tap } from 'rxjs/operators';
+import { empty, of, throwError, fromEvent, Subscription, Subject, Observer } from 'rxjs';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
+import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'login-dialog',
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.css']
 })
-export class LoginDialogComponent {
+export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('confirmButton' , {static: false, read: ElementRef}) 
+  confirmButton: ElementRef;
+  confirmBtnSub: Subscription = new Subscription();
+  userConfirmation$: Subject<User> = new Subject();
 
   currentUser: User;
   defaultGuest: User;
   loginDisable: boolean = true;
+  loginRequesting: boolean = false;
   registerMode: boolean;
   title: string;
   subTitle: string;
   btnConfirm: string;
   btnCancel: string;
-
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
@@ -37,6 +44,66 @@ export class LoginDialogComponent {
       // create guest user
       this.defaultGuest = new User();
       this.defaultGuest.setUser(new UserInfo());
+      
+  }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    // can use takeUtil to complete the obs/subjects below.
+    // Complete these when dialog window is closed with takeUtil
+
+    this.userConfirmation$
+      .pipe(
+        concatMap((user: User) => {
+          if (user) {
+            let url: string = "chronometer.json";
+            return this.rs.postData(this.currentUser, url);
+          } else {
+            // set helper text to let user know pick new name
+            return empty();
+          }
+          
+        })
+      )
+      .subscribe(
+        this.getUserCreatedObserver()
+      );
+
+    this.confirmBtnSub = fromEvent(this.confirmButton.nativeElement, 'click')
+      .pipe(
+        tap((res) => {this.loginRequesting = true}),
+        switchMap((res) => {
+          let url: string = "chronometer.json";
+          return this.rs.getData(url);
+        })
+      )
+      .subscribe(
+        (res: HttpResponse<any>) => {
+          this.converCurrentUser();
+          let alreadyExist: boolean = false;
+          if (res.body) {
+            for (let key in res.body) {
+              let aUser: User = res.body[key];
+              if (aUser.user.id === this.currentUser.user.id) {
+                this.ts.info("This user name already exists.", "Error");
+                alreadyExist = true;
+                break;
+              }
+            }
+            this.loginRequesting = false;
+            this.userConfirmation$.next(alreadyExist ? null : this.currentUser);
+          } else {
+            this.ts.error("Server returned NULL." + res.body, "Error");
+          }
+        },
+        (err) => {
+        },
+        () => {
+          // fromEvent will not complete by itself!
+        }
+      );
   }
 
   userIsNew(): void {
@@ -56,39 +123,6 @@ export class LoginDialogComponent {
       return false;
     }
     return true;
-  }
-
-  onConfirm() {
-    let url: string = "chronometer.json";
-    this.rs.getData(url)
-    .pipe(
-      switchMap((res: HttpResponse<any>) => {
-        let arr: User[] = [];
-        if (res.body) {
-          for (let key in res.body) {
-            let aUser: User = res.body[key];
-            if (aUser.user.id === this.currentUser.user.id) {
-              this.ts.info("This user name already exists.", "Error");
-              return empty();
-            }
-          }
-          this.converCurrentUser();
-          return this.rs.postData(this.currentUser, url);
-        }
-        return throwError('Data of NULL was returned');
-      })
-    )
-    .subscribe({
-      next: (res: any) => {
-        this.ts.success("Creation was a great success! " + res.body.name, "Welcome");
-      },
-      error: (err) => {
-        this.ts.error("Server error: " + err, "Error");
-      },
-      complete: () => {
-        // close dialog
-      }
-    });
   }
 
   onCancel() {
@@ -132,6 +166,26 @@ export class LoginDialogComponent {
     this.currentUser.admin = false;
     this.currentUser.isUser = true;
     this.currentUser.setNoName();
+  }
+
+  getUserCreatedObserver(): Observer<HttpResponse<any>> {
+    return {
+      next: (res: HttpResponse<any>) => {
+        this.ts.success("User created! " + res.body.name, "Welcome");
+        this.dialogRef.close(this.currentUser);
+      },
+      error: (err: any) => {
+        this.ts.error("Server error: " + err, "Error");
+      },
+      complete: () => {
+        // subject will not complete by itself!
+      }
+    };
+  }
+
+  ngOnDestroy() {
+    this.confirmBtnSub.unsubscribe();
+    this.userConfirmation$.unsubscribe();
   }
 
 }
