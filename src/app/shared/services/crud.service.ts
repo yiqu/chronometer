@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { delay, map, timeout, retry, retryWhen, delayWhen, tap, take } from 'rxjs/operators';
+import { delay, map, timeout, retry, retryWhen, delayWhen, tap, 
+  take, switchMap } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
@@ -35,6 +36,7 @@ export class CrudRestServie {
       .pipe(
         timeout(DEFAULT_TIMEOUT),
         retryWhen(errors => this.handleError(errors)),
+        delay(environment.restDelay)
       ) 
   }
 
@@ -50,7 +52,7 @@ export class CrudRestServie {
     return this.http.put<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'}).
       pipe(
         timeout(DEFAULT_TIMEOUT),
-        retryWhen(errors => this.handleError(errors)),
+        retryWhen(errors => this.handleError(errors))
       )
   }
 
@@ -61,12 +63,12 @@ export class CrudRestServie {
    * @param postUrl 
    */
   postData<T>(dataToPost: T, postUrl: string): Observable<HttpResponse<T>> {
-    //https://kq-1-1a499.firebaseio.com/....json
     let url: string = this.getBaseUrl() + postUrl;
-    return this.http.post<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'}).
-      pipe(
+    return this.http.post<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'})
+      .pipe(
         timeout(DEFAULT_TIMEOUT),
         retryWhen(errors => this.handleError(errors)),
+        //delay(environment.restDelay)
       )
   }
 
