@@ -1,14 +1,15 @@
 import { Component, Inject, ElementRef, ViewChild, OnInit, 
   AfterViewInit, OnDestroy } from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User, UserInfo} from '../../model/user.model';
-import { CrudRestServie } from '../../../shared/services/crud.service';
+import { MatButton } from '@angular/material/button';
+import { ToastrService } from 'ngx-toastr';
 import { HttpResponse } from '@angular/common/http';
 import { take, map, switchMap, exhaustMap, concatMap, tap } from 'rxjs/operators';
 import { empty, of, throwError, fromEvent, Subscription, Subject, Observer } from 'rxjs';
 import * as _ from 'lodash';
-import { ToastrService } from 'ngx-toastr';
-import { MatButton } from '@angular/material/button';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { User, UserInfo} from '../../model/user.model';
+import { CrudRestServie } from '../../../shared/services/crud.service';
+
 
 @Component({
   selector: 'login-dialog',
@@ -73,7 +74,12 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.confirmBtnSub = fromEvent(this.confirmButton.nativeElement, 'click')
       .pipe(
-        tap((res) => {this.loginRequesting = true}),
+        tap(
+          (res) => {
+            this.loginRequesting = true;
+            this.updateRegisterText();
+          }
+        ),
         switchMap((res) => {
           let url: string = "chronometer.json";
           return this.rs.getData(url);
@@ -93,6 +99,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
               }
             }
             this.loginRequesting = false;
+            this.updateRegisterText();
             this.userConfirmation$.next(alreadyExist ? null : this.currentUser);
           } else {
             this.ts.error("Server returned NULL." + res.body, "Error");
@@ -181,6 +188,10 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
         // subject will not complete by itself!
       }
     };
+  }
+  
+  updateRegisterText() {
+    this.btnConfirm = this.loginRequesting ? "Registering" : "Register";
   }
 
   ngOnDestroy() {
