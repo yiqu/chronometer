@@ -33,7 +33,7 @@
       {{ btnConfirm }}
   </button>
 
-  <button #loginButton *ngIf="!registerMode" mat-flat-button 
+  <button #loginButton [ngStyle]="{'display':registerMode?'none':'initial'}" mat-flat-button 
     [disabled]="loginDisable || loginRequesting" (click)="onLogin()" color="primary">
       {{ btnLogin }}
   </button>
