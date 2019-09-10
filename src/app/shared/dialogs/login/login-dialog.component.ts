@@ -132,7 +132,8 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       switchMap((res: any) => {
         let url: string = "chronometer.json";
         return this.rs.getData<any>(url);
-      })
+      }),
+      takeUntil(this.ls.dialogClose$)
     )
     .subscribe(
       (res: HttpResponse<any>) => {
@@ -141,6 +142,11 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
         let results: User[] = UTILS.objectToArray(res.body);
         let loggedInUser = _.find(results, {user: {id: this.currentUser.user.id}});
         console.log(loggedInUser)
+      },
+      (err) => {
+      },
+      () => {
+        console.log("log in event done");
       }
     )
   }
