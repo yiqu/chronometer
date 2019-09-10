@@ -118,7 +118,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       (err) => {
       },
       () => {
-        console.log("from event done");
+        console.log("From event done");
       }
     );
 
