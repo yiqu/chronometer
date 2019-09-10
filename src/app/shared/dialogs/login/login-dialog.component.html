@@ -7,16 +7,17 @@
 
 <div mat-dialog-content class="font-roboto text-center">
   <h2 class="signin-header">
-    <span>{{title}}</span>
+    <span>{{ title }}</span>
   </h2>
-  <div class="signin-subheader mb-20">{{subTitle}}</div>
+  <div class="signin-subheader mb-20">{{ subTitle }}</div>
   <mat-form-field>
     <input matInput placeholder="Name" cdkFocusInitial [(ngModel)]="currentUser.user.id" 
       (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
 
-  <div *ngIf="!registerMode" class="mb-20">
-    <span class="new-user-label" (click)="userIsNew()">I am new...</span>
+  <div class="mb-20">
+    <a *ngIf="!registerMode && !loginRequesting" class="new-user-label" 
+      (click)="userIsNew()" href="javascript:void(0)">I am new...</a>
   </div>
 </div>
 
@@ -28,8 +29,12 @@
   </button>
 
   <button [ngStyle]="{'display':registerMode?'initial':'none'}" #confirmButton mat-flat-button 
-    [disabled]="loginDisable || loginRequesting" color="primary">{{ btnConfirm }}</button>
+    [disabled]="loginDisable || loginRequesting" color="primary">
+      {{ btnConfirm }}
+  </button>
 
-  <button  *ngIf="!registerMode" mat-flat-button [disabled]="loginDisable" 
-    (click)="onLogin()" color="primary">Login</button>
+  <button #loginButton [ngStyle]="{'display':registerMode?'none':'initial'}" mat-flat-button 
+    [disabled]="loginDisable || loginRequesting" (click)="onLogin()" color="primary">
+      {{ btnLogin }}
+  </button>
 </div>

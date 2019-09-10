@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User, UserInfo} from '../model/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class LoginService {
 
   userData: User;
+  dialogClose$: Subject<boolean> = new Subject();
 
   constructor(public router: Router, public route: ActivatedRoute) {
     // create init user
