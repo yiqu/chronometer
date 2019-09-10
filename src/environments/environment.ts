@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  restDelay: 3000
+  restDelay: 1000
 };
 
 /*
