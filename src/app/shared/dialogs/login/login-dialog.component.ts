@@ -153,6 +153,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
   userIsNew(): void {
     this.registerMode = true;
+    this.cd.detectChanges();
     this.updateText();
   }
 
