@@ -9,7 +9,7 @@ import { empty, of, throwError, fromEvent, Subscription, Subject,
   Observer } from 'rxjs';
 import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User, UserInfo} from '../../model/user.model';
+import { User, UserInfo, UserData, UserDataTime } from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { LoginService } from '../../services/login.service';
 import * as UTILS from '../../utils/general.utils'
@@ -30,6 +30,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   confirmBtnSub: Subscription = new Subscription();
   userConfirmation$: Subject<User> = new Subject();
   userConfirmSub: Subscription = new Subscription();
+  userLoginConfirmSub: Subscription = new Subscription();
 
   currentUser: User;
   defaultGuest: User;
@@ -41,6 +42,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   btnConfirm: string = "Register";
   btnLogin: string = "Login";
   btnCancel: string;
+  warningMsg: string;
 
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: User,
@@ -85,6 +87,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
     this.confirmBtnSub = fromEvent(this.confirmButton.nativeElement, 'click').pipe(
       tap(
         (res) => {
+          this.setWarningMsg(null);
           this.loginRequesting = true;
           this.updateRegisterText();
         }
@@ -107,6 +110,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
             if (aUser.user.id === this.currentUser.user.id) {
               this.ts.info("This user name already exists.", "Error");
               alreadyExist = true;
+              this.setWarningMsg("exist");
               break;
             }
           }
@@ -122,9 +126,10 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
-    fromEvent(this.loginButton.nativeElement, 'click').pipe(
+    this.userLoginConfirmSub = fromEvent(this.loginButton.nativeElement, 'click').pipe(
       tap(
         (res) => {
+          this.setWarningMsg(null);
           this.loginRequesting = true;
           this.updateLoginText();
         }
@@ -142,6 +147,11 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
         let results: User[] = UTILS.objectToArray(res.body);
         let loggedInUser = _.find(results, {user: {id: this.currentUser.user.id}});
         console.log(loggedInUser)
+        if (loggedInUser) {
+          this.closeAndSetUser(loggedInUser);
+        } else {
+          this.setWarningMsg("none");
+        }
       },
       (err) => {
       },
@@ -152,7 +162,9 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   userIsNew(): void {
+    this.setWarningMsg(null);
     this.registerMode = true;
+    this.currentUser.user.id = null;
     this.updateText();
   }
 
@@ -180,12 +192,12 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       this.registerMode = false;
       this.updateText();
     }
+    this.setWarningMsg(null);
+    this.currentUser.user.id = null;
   }
 
   onLogin() {
-    // this.userData.name = this.userData.name.trim();
-    // this.userData.isUser = true;
-    // this.dialogRef.close(this.userData);
+    
   }
 
   updateText() {
@@ -239,10 +251,27 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dialogRef.close(user);
   }
 
+  setWarningMsg(option: string) {
+    switch(option) {
+      case "exist": {
+        this.warningMsg = "This account name is already taken";
+        break;
+      }
+      case "none": {
+        this.warningMsg = "Couldn't find your Chronometer account";
+        break;
+      }
+      default: {
+        this.warningMsg = null;
+      }
+    }
+  }
+
   ngOnDestroy() {
     this.confirmBtnSub.unsubscribe();
     this.userConfirmation$.unsubscribe();
     this.userConfirmSub.unsubscribe();
+    this.userLoginConfirmSub.unsubscribe();
   }
 
 }
