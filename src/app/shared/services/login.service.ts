@@ -8,7 +8,10 @@ import { Subject } from 'rxjs';
 })
 export class LoginService {
 
+  // current user data
   userData: User;
+
+  // sub to emit when login dialog window closes
   dialogClose$: Subject<boolean> = new Subject();
 
   constructor(public router: Router, public route: ActivatedRoute) {
@@ -17,6 +20,10 @@ export class LoginService {
     this.userData.setUser(new UserInfo());
   }
 
+  /**
+   * User register/login callback.
+   * @param data 
+   */
   userLogin(data: User) {
     this.userData = data;
     this.router.navigate(['/home'], {

@@ -15,6 +15,13 @@
       (ngModelChange)="onLoginNameChange($event)">
   </mat-form-field>
 
+  <div *ngIf="warningMsg" class="mb-1">
+    <div class="text-danger">
+      <i class="material-icons xs-icon mr-1" style="vertical-align: -3px;">info</i>
+      <span style="font-size: 12px">{{ warningMsg }}</span>
+    </div>
+  </div>
+
   <div class="mb-20">
     <a *ngIf="!registerMode && !loginRequesting" class="new-user-label" 
       (click)="userIsNew()" href="javascript:void(0)">I am new...</a>
@@ -24,7 +31,7 @@
 <div mat-dialog-actions class="font-roboto justify-content-center">
   <!-- <button mat-button (click)="onDefaultClick()">Login as guest.</button> -->
   <!-- <button mat-flat-button [mat-dialog-close]="defaultGuest" color="primary">{{btnCancel}}</button> -->
-  <button mat-flat-button (click)="onCancel()" [disabled]="registerMode && loginRequesting" color="accent">
+  <button mat-flat-button (click)="onCancel()" [disabled]="loginRequesting" color="accent">
     {{ btnCancel }}
   </button>
 
