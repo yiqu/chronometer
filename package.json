@@ -30,6 +30,7 @@
     "@ngx-loading-bar/http-client": "^4.2.0",
     "@ngx-loading-bar/router": "^4.2.0",
     "bootstrap": "4.3.1",
+    "immutable": "~3.8.2",
     "jquery": "~3.4.0",
     "lodash": "~4.17.10",
     "memo-decorator": "^1.0.2",

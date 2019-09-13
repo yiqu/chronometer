@@ -9,7 +9,7 @@ import { empty, of, throwError, fromEvent, Subscription, Subject,
   Observer } from 'rxjs';
 import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User, UserInfo, UserData, UserDataTime } from '../../model/user.model';
+import { User, UserInfo } from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { LoginService } from '../../services/login.service';
 import * as UTILS from '../../utils/general.utils'

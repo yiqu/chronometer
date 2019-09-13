@@ -53,7 +53,6 @@ export class NavBarComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       this.ls.userLogin(result);
-      console.log(this.ls.userData)
     });
   }
 
