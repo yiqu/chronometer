@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { DropdownDirective } from './bs-open.dir';
+import { RainbowColorDirective } from './rainbow.dir';
 
 @NgModule({
   imports: [],
 
   exports: [
-    DropdownDirective
+    DropdownDirective,
+    RainbowColorDirective
   ],
 
   declarations: [
-    DropdownDirective
+    DropdownDirective,
+    RainbowColorDirective
   ],
 
   providers: [],

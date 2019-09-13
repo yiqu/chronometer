@@ -7,6 +7,7 @@ import { MaterialModule } from '../shared/material-barrel.module';
 import { PipesBarrelModule } from '../shared/pipes/pipes-barrel.module';
 import { SnackBarBarrelModule } from '../shared/snack-bars/snack-bars.module';
 import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
+import { DirectivesBarrelModule } from '../shared/directives/dir-barrel.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.compo
     FormsModule, 
     MaterialModule,
     PipesBarrelModule,
-    SnackBarBarrelModule
+    SnackBarBarrelModule,
+    DirectivesBarrelModule
   ],
 
   exports: [
