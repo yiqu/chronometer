@@ -87,8 +87,8 @@ export class CoreComponent implements OnInit, OnDestroy {
   toggleReset() {
     this.openSnackBar();
     if (this.timerStarted) {
-      // lap
-      console.log("lapping: ",this.timerInMilli)
+      let time = new TimeData(this.timerInMilli, 0, new Date().getTime(), null);
+      this.ds.timeSaved$.next(time);
 
     } else {
       this.resetTimer();

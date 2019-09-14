@@ -18,7 +18,7 @@
             </button>
           </div>
           <div class="reset-lap">
-            <button (click)="toggleReset()" class="toggle-width"
+            <button (click)="toggleReset()" class="toggle-width" [disabled]="!timerStarted && timerInMilli===0"
               mat-flat-button color="primary">{{resetLapText}}</button>
           </div>
         </div>

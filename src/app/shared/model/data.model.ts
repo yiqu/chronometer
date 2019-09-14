@@ -1,6 +1,7 @@
 export class TimeData {
   constructor(public duration: number, public createDate: number, public endDate: number,
-    public info: TimeDataInformation[]) {
+    public info?: TimeDataInformation[]) {
+      this.info = [new TimeDataInformation()];
   }
 }
 

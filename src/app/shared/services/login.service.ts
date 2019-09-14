@@ -15,7 +15,7 @@ export class LoginService {
   // sub to emit when login dialog window closes
   dialogClose$: Subject<boolean> = new Subject();
 
-  constructor(public router: Router, public route: ActivatedRoute, public ds: DataService) {
+  constructor(public router: Router, public route: ActivatedRoute) {
     // create init user
     this.userData = new User();
     this.userData.setUser(new UserInfo());
