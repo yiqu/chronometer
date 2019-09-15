@@ -14,7 +14,7 @@
           <div class="">
             <button (click)="toggleStart()" mat-flat-button color="primary"
               [ngClass]="{'toggle-width': true, 'start-color': !timerStarted, 'stop-color': timerStarted}">
-              {{timerStarted | buttonToggleText}}
+              {{timerStarted | buttonToggleText:(timerInMilli > 0)}}
             </button>
           </div>
           <div class="reset-lap">

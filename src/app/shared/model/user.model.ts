@@ -7,7 +7,8 @@ export class User {
   constructor(public user: UserInfo = null, 
     public admin: boolean = false, 
     public isUser: boolean = false,
-    public data: UserData = new UserData()) {
+    public data: UserData = new UserData(),
+    public hashKey: string = null) {
 
   }
 

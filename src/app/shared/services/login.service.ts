@@ -35,7 +35,7 @@ export class LoginService {
   }
 
   setUserDataAfterLogin(data: User) {
-    this.userData = new User(data.user, data.admin, data.isUser, data.data);
+    this.userData = new User(data.user, data.admin, data.isUser, data.data, data.hashKey);
     console.log("LOGGED IN: ",this.userData)
   }
 }

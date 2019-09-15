@@ -74,6 +74,9 @@ export class CoreComponent implements OnInit, OnDestroy {
   toggleStart() {
     this.timerStarted = !this.timerStarted;
     if (this.timerStarted) {
+      if (this.timerInMilli > 0) {
+        this.resetLapText = "Lap";
+      }
       // starting timer
       this.timerSub.unsubscribe();
       this.startTimerSub();

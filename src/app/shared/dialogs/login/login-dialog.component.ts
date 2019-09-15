@@ -146,7 +146,6 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
         this.updateLoginText();
         let results: User[] = UTILS.objectToArray(res.body);
         let loggedInUser = _.find(results, {user: {id: this.currentUser.user.id}});
-        console.log(loggedInUser)
         if (loggedInUser) {
           this.closeAndSetUser(loggedInUser);
         } else {
