@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User, UserInfo} from '../model/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
+import { DataService } from './data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,16 @@ export class LoginService {
    * @param data 
    */
   userLogin(data: User) {
-    this.userData = data;
+    this.setUserDataAfterLogin(data);
+
     this.router.navigate(['/home'], {
       queryParams: {user: this.userData.user.id},
       queryParamsHandling: ''
     });
+  }
+
+  setUserDataAfterLogin(data: User) {
+    this.userData = new User(data.user, data.admin, data.isUser, data.data, data.hashKey);
+    console.log("LOGGED IN: ",this.userData)
   }
 }

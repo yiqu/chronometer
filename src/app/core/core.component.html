@@ -14,21 +14,20 @@
           <div class="">
             <button (click)="toggleStart()" mat-flat-button color="primary"
               [ngClass]="{'toggle-width': true, 'start-color': !timerStarted, 'stop-color': timerStarted}">
-              {{timerStarted | buttonToggleText}}
+              {{timerStarted | buttonToggleText:(timerInMilli > 0)}}
             </button>
           </div>
           <div class="reset-lap">
-            <button (click)="toggleReset()" class="toggle-width"
+            <button (click)="toggleReset()" class="toggle-width" [disabled]="!timerStarted && timerInMilli===0"
               mat-flat-button color="primary">{{resetLapText}}</button>
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- Left side -->
     <div class="col mt-5">
-      <h1 class="font-secondary center-text">History</h1>
+      <app-history [timeData]="this.ls.userData.data"></app-history>
     </div>
   </div>
 </div>

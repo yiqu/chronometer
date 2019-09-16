@@ -7,6 +7,7 @@ import { delay, map, timeout, retry, retryWhen, delayWhen, tap,
 import { timer } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import * as UTILS from '../utils/general.utils';
 
 
 const headers = new HttpHeaders({
@@ -67,8 +68,7 @@ export class CrudRestServie {
     return this.http.post<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'})
       .pipe(
         timeout(DEFAULT_TIMEOUT),
-        retryWhen(errors => this.handleError(errors)),
-        //delay(environment.restDelay)
+        retryWhen(errors => this.handleError(errors))
       )
   }
 
