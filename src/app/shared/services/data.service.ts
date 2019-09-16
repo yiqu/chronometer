@@ -20,11 +20,13 @@ export class DataService {
 
     this.timeSaved$.pipe(
       mergeMap((res: TimeData) => {
-        return this.cs.postData(res, this.buildSaveTimeUrl())
+        if (this.ls.userData.hashKey) {
+          return this.cs.postData(res, this.buildSaveTimeUrl())
+        }
+        return empty();
       })
     ).subscribe({
       next: (res: HttpResponse<any>) => {
-        console.log("res:",res)
         this.ts.toastrConfig.timeOut = 1000;
         this.ts.success("Hash key: " + res.body['name'], "Saved")
         //debounce the time to refresh the table list

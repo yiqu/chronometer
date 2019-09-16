@@ -9,3 +9,8 @@ export class TimeDataInformation {
   constructor(public note: string = "") {
   }
 }
+
+export interface TimeTableHeader {
+  id: string;
+  display: string;
+}
