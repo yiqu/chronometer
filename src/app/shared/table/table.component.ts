@@ -10,13 +10,15 @@ import { TimeData, TimeDataInformation, TimeTableHeader } from '../model/data.mo
 export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input('tableData')
-  dataSource: any
+  dataSource: any;
 
   @Input('tableHeaders')
-  headers: TimeTableHeader[]
+  headers: TimeTableHeader[];
+
+  displayedColumns: string[];
 
   constructor() {
-    this.headers = [];
+    this.displayedColumns = [];
   }
 
   ngOnChanges(changes: SimpleChanges) {
