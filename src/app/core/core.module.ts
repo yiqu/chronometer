@@ -9,6 +9,7 @@ import { PipesBarrelModule } from '../shared/pipes/pipes-barrel.module';
 import { SnackBarBarrelModule } from '../shared/snack-bars/snack-bars.module';
 import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
 import { DirectivesBarrelModule } from '../shared/directives/dir-barrel.module';
+import { SharedTableModule } from '../shared/table/table.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DirectivesBarrelModule } from '../shared/directives/dir-barrel.module';
     MaterialModule,
     PipesBarrelModule,
     SnackBarBarrelModule,
-    DirectivesBarrelModule
+    DirectivesBarrelModule,
+    SharedTableModule
   ],
 
   exports: [
