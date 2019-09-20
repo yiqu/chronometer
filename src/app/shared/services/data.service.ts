@@ -36,7 +36,6 @@ export class DataService {
       })
     ).subscribe({
       next: (res: HttpResponse<any>) => {
-        //this.ls.userData.data = new UserData()
 
       },
       complete: () => {

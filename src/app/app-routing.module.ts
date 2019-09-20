@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './404/404.component';
 import { CoreComponent } from './core/core.component';
-
+import { LogoutComponent } from './logout/logout.component';
 
 const routes: Routes = [
   {
@@ -11,6 +11,10 @@ const routes: Routes = [
   },
   { path: 'about', 
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule) 
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   {
     path: '',
