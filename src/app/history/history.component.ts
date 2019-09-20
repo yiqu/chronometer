@@ -21,8 +21,8 @@ export class HistoryComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(change: SimpleChanges) {
     console.log("changed in history",change.timeData.currentValue.time)
-    this.tableData = UTILS.objectToArray(change.timeData.currentValue.time);
-    console.log(this.tableData)
+    //this.tableData = UTILS.objectToArray(change.timeData.currentValue.time);
+    //console.log(this.tableData)
   }
 
   ngOnInit() {

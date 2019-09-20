@@ -8,6 +8,7 @@ import { TimeData, TimeDataInformation } from '../model/data.model';
 import { CrudRestServie } from './crud.service';
 import { LoginService } from './login.service';
 import { HttpResponse } from '@angular/common/http';
+import { UserData } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,17 @@ export class DataService {
         }
         return empty();
       }),
+      tap((res: HttpResponse<TimeData>) => {
+        this.ts.toastrConfig.timeOut = 1000;
+        this.ts.success("Hash key: " + res.body['name'], "Saved")
+      }),
       debounceTime(1000),
       concatMap((res) => {
         return this.cs.getData(this.buildSaveTimeUrl());
       })
     ).subscribe({
       next: (res: HttpResponse<any>) => {
-        this.ts.toastrConfig.timeOut = 1000;
-        //this.ts.success("Hash key: " + res.body['name'], "Saved")
-        //debounce the time to refresh the table list
-        console.log(res)
+        //this.ls.userData.data = new UserData()
 
       },
       complete: () => {

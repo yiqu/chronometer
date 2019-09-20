@@ -71,7 +71,8 @@ export class CrudRestServie {
     return this.http.post<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'})
       .pipe(
         timeout(DEFAULT_TIMEOUT),
-        retryWhen(errors => this.handleError(errors))
+        retryWhen(errors => this.handleError(errors)),
+        delay(environment.restDelay)
       )
   }
 

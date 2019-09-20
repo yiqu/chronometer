@@ -38,9 +38,6 @@ export class CoreComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log("Init Core Component");
-    console.log(this.ls.userData)
-
     this.ts.startCurrentTime();
 
     this.route.queryParamMap.subscribe((queryParam) => {
