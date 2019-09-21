@@ -31,14 +31,22 @@ export class CoreComponent implements OnInit, OnDestroy {
   resetLapText: string = "Lap";
   timerStarted: boolean = false;
   currentUser: User;
+  resetUserListener: Subject<any> = new Subject();
 
   constructor(public ts: TimeService, private sb: MatSnackBar, public router: Router,
     public route: ActivatedRoute, public ls: LoginService, public ds: DataService) {
       this.timer$ = interval(1000);
-      this.ls.currentUser$.subscribe((user: User) => {
+      this.ls.currentUser$.pipe(
+        takeUntil(this.resetUserListener)
+      ).subscribe({
+        next: (user: User) => {
         this.currentUser = new User(user.user, user.admin, user.isUser, user.data, 
           user.hashKey);
         console.log("USER: ",this.currentUser)
+        },
+        complete: () => {
+          console.log("current user $ done.")
+        }
       });
   }
 
@@ -63,6 +71,8 @@ export class CoreComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ts.stopCurrentTime();
     this.resetTimer();
+    this.resetUserListener.next(true);
+    this.resetUserListener.complete();
   }
 
   private startTimerSub() {

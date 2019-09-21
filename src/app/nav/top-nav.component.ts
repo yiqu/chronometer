@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { delay, concatMap, map, takeUntil, startWith, timeInterval } from 'rxjs/operators';
 import { NavItem } from '../shared/model/nav-item.model';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.component';
@@ -26,6 +27,7 @@ export class NavBarComponent implements OnInit {
   currentUser: User;
   userLoginText: string;
   routerData: RouterDataConfig = new RouterDataConfig(null, null, null);
+  
 
   constructor(public router: Router, public route: ActivatedRoute,
     public dialog: MatDialog, public ls: LoginService) {

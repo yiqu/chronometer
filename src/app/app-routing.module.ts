@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './404/404.component';
 import { CoreComponent } from './core/core.component';
 import { LogoutComponent } from './logout/logout.component';
+import { LogoutResolver } from './shared/resolvers/logout.resolver';
 
 const routes: Routes = [
   {
@@ -14,7 +15,10 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: LogoutComponent
+    component: LogoutComponent,
+    resolve: {
+      logout: LogoutResolver
+    }
   },
   {
     path: '',

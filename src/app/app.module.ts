@@ -11,6 +11,7 @@ import { ResetLapSnackBarComponent } from './shared/snack-bars/reset-lap.compone
 import { DialogBarrelModule } from './shared/dialogs/dialog-barrel.module';
 import { LoginDialogComponent } from './shared/dialogs/login/login-dialog.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LogoutResolver } from './shared/resolvers/logout.resolver';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   providers: [
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: null },
+    LogoutResolver
   ],
 
   entryComponents: [
@@ -53,6 +55,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     LoginDialogComponent
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

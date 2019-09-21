@@ -50,4 +50,10 @@ export class LoginService {
     this.currentUser$.next(this.userData);
 
   }
+
+  getDefaultUser(): User {
+    let user = new User();
+    user.setUser(new UserInfo());
+    return user;
+  }
 }
