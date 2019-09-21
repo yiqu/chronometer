@@ -4,7 +4,8 @@ import { TimeDataInformation, TimeData } from './data.model';
  * User model
  */
 export class User {
-  constructor(public user: UserInfo = null, 
+  constructor(
+    public user: UserInfo = null, 
     public admin: boolean = false, 
     public isUser: boolean = false,
     public data: UserData = new UserData(),

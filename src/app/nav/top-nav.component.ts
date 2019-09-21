@@ -41,7 +41,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
     this.ls.currentUser$.subscribe((user: User) => {
-      console.log("USER top nav:", user)
+      //console.log("USER top nav:", user)
       this.currentUser = new User(user.user, user.admin, user.isUser, 
         user.data, user.hashKey);
       this.updateLoginCompoent(this.currentUser.isUser);

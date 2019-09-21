@@ -9,6 +9,7 @@ import { CrudRestServie } from './crud.service';
 import { LoginService } from './login.service';
 import { HttpResponse } from '@angular/common/http';
 import { UserData } from '../model/user.model';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,16 @@ export class DataService {
       }),
       debounceTime(1000),
       concatMap((res) => {
-        return this.cs.getData(this.buildSaveTimeUrl());
+        return this.cs.getData<User>(this.getUserByHashUrl());
       })
     ).subscribe({
-      next: (res: HttpResponse<any>) => {
-
+      next: (res: HttpResponse<User>) => {
+        // need to re-append the hashkey to the new response
+        res.body['hashKey'] = this.ls.userData.hashKey;
+        this.ls.setUserData(res.body);
+      },
+      error: (err) => {
+        this.ts.error("Error: " + err, "Server Error");
       },
       complete: () => {
         console.log("time saver subject is done")
@@ -51,6 +57,10 @@ export class DataService {
    */
   buildSaveTimeUrl(): string {
     return "chronometer/" + this.ls.userData.hashKey + "/" + "data/" + "time.json";
+  }
+
+  getUserByHashUrl(): string {
+    return "chronometer/" + this.ls.userData.hashKey + ".json";
   }
 
 }

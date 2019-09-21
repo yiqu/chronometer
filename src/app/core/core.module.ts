@@ -11,6 +11,7 @@ import { LoginDialogComponent } from '../shared/dialogs/login/login-dialog.compo
 import { DirectivesBarrelModule } from '../shared/directives/dir-barrel.module';
 import { SharedTableModule } from '../shared/table/table.module';
 import { LogoutComponent } from '../logout/logout.component';
+import { LoadingModule } from '../loading/loading.module'
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LogoutComponent } from '../logout/logout.component';
     PipesBarrelModule,
     SnackBarBarrelModule,
     DirectivesBarrelModule,
-    SharedTableModule
+    SharedTableModule,
+    LoadingModule
   ],
 
   exports: [
