@@ -39,6 +39,10 @@ export class UserData {
     let infos: TimeDataInformation[] = [];
     let info = new TimeDataInformation("Empty");
     infos.push(info);
-    this.time.push(new TimeData(0, 0, 0, infos));
+    this.time.push(new TimeData(0, 0, 0, null, infos));
+  }
+
+  setTime(data: TimeData[]) {
+    this.time = data;
   }
 }

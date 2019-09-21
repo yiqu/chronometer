@@ -69,6 +69,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
     // can use takeUtil to complete the obs/subjects below.
     // Complete these when dialog window is closed with takeUtil
 
+    // REGISTERED
     this.userConfirmSub = this.userConfirmation$.pipe(
       concatMap((user: User) => {
         if (user) {
@@ -84,6 +85,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       this.getUserCreatedObserver()
     );
 
+    // REGISTER
     this.confirmBtnSub = fromEvent(this.confirmButton.nativeElement, 'click').pipe(
       tap(
         (res) => {
@@ -126,6 +128,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     );
 
+    // LOG in button
     this.userLoginConfirmSub = fromEvent(this.loginButton.nativeElement, 'click').pipe(
       tap(
         (res) => {

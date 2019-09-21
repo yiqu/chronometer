@@ -24,11 +24,12 @@
     </div>
   </div>
 
-  <a *ngIf="!this.ls.userData.isUser" [routerLink]="['/home']" [queryParams]="{loginDialog: true}" 
-    queryParamsHandling="merge">
+  <a *ngIf="routerData" [routerLink]="routerData.links" 
+    [queryParams]="routerData.params" 
+    [queryParamsHandling]="routerData.handling">
       <div class="login-section">
         <i class="material-icons lg-icon">account_circle</i>
-        <span>Login</span>
+        <span>{{userLoginText}}</span>
       </div>
   </a>
 </nav>

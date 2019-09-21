@@ -10,6 +10,7 @@ import { ResetLapSnackBarComponent } from '../shared/snack-bars/reset-lap.compon
 import { TimeData, TimeDataInformation } from '../shared/model/data.model';
 import { LoginService } from '../shared/services/login.service';
 import { DataService } from '../shared/services/data.service';
+import { User } from '../shared/model/user.model';
 
 const TIMER_START: string = "Start";
 const TIMER_STOP: string = "Stop";
@@ -24,29 +25,38 @@ const USER_PARAM_KEY: string = "user";
 export class CoreComponent implements OnInit, OnDestroy {
 
   snackBarDuration = 1;
-
   timer$: Observable<number>;
   timerSub: Subscription = new Subscription();
   timerInMilli: number = 0;
-
   resetLapText: string = "Lap";
   timerStarted: boolean = false;
+  currentUser: User;
+  resetUserListener: Subject<any> = new Subject();
 
   constructor(public ts: TimeService, private sb: MatSnackBar, public router: Router,
     public route: ActivatedRoute, public ls: LoginService, public ds: DataService) {
       this.timer$ = interval(1000);
+      this.ls.currentUser$.pipe(
+        takeUntil(this.resetUserListener)
+      ).subscribe({
+        next: (user: User) => {
+        this.currentUser = new User(user.user, user.admin, user.isUser, user.data, 
+          user.hashKey);
+        console.log("USER: ",this.currentUser)
+        },
+        complete: () => {
+          console.log("current user $ done.")
+        }
+      });
   }
 
   ngOnInit() {
-    console.log("Init Core Component");
-    console.log(this.ls.userData)
-
     this.ts.startCurrentTime();
 
     this.route.queryParamMap.subscribe((queryParam) => {
       if (queryParam.has(USER_PARAM_KEY)) {
         const userIdParamValue: string = queryParam.get(USER_PARAM_KEY);
-        const userSet: boolean = this.ls.userData.isUserSet();
+        const userSet: boolean = this.currentUser.isUserSet();
 
         // remove query param '?user' if it exists and no user is logged in
         if (userIdParamValue && !userSet) {
@@ -61,6 +71,8 @@ export class CoreComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ts.stopCurrentTime();
     this.resetTimer();
+    this.resetUserListener.next(true);
+    this.resetUserListener.complete();
   }
 
   private startTimerSub() {

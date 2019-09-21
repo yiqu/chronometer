@@ -33,7 +33,10 @@ export class CrudRestServie {
    */
   getData<T>(url: string, params?: any): Observable<HttpResponse<T>> {
     let u: string = this.getBaseUrl() + url;
-    return this.http.get<T>(u, {headers: headers, observe: 'response', responseType: 'json'})
+    return this.http.get<T>(u, {
+      headers: headers, observe: 'response', responseType: 'json',
+      params: params
+    })
       .pipe(
         timeout(DEFAULT_TIMEOUT),
         retryWhen(errors => this.handleError(errors)),
@@ -68,7 +71,8 @@ export class CrudRestServie {
     return this.http.post<T>(url, dataToPost, {headers: headers, observe: 'response', responseType: 'json'})
       .pipe(
         timeout(DEFAULT_TIMEOUT),
-        retryWhen(errors => this.handleError(errors))
+        retryWhen(errors => this.handleError(errors)),
+        delay(environment.restDelay)
       )
   }
 
