@@ -1,0 +1,12 @@
+.loading-parent {
+  max-width: 210px;
+  max-height: 210px;
+  display: inline-block;
+}
+
+.loading {
+  width: 100%;
+  display: block;
+  text-align: center;
+  align-content: center;
+}
