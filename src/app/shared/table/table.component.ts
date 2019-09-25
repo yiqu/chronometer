@@ -22,7 +22,8 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("table changes: ", this.dataSource, this.headers)
+    console.log("table changes: ", this.dataSource)
+    console.log("headers: ", this.headers)
   }
 
   ngOnInit() {
