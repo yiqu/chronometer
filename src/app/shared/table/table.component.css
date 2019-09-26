@@ -1,3 +1,13 @@
 table {
   width: 100%;
 }
+
+.wider-column {
+  min-width: 300px;
+}
+
+.table-header-cell {
+  font-weight: 700;
+  font-family: 'Roboto';
+  font-size: 15px;
+}
