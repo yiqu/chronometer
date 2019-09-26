@@ -87,11 +87,19 @@ THE SOFTWARE.
 
 @angular/material/button
 
+@angular/material/core
+
 @angular/material/dialog
 
 @angular/material/form-field
 
+@angular/material/paginator
+
+@angular/material/select
+
 @angular/material/snack-bar
+
+@angular/material/table
 
 @angular/material/tooltip
 
