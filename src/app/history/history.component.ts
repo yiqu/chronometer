@@ -18,8 +18,11 @@ export class HistoryComponent implements OnInit, OnDestroy, OnChanges {
   timeData: UserData;
 
   tableData: any;
+  tableColumns: string[] = [];
 
   constructor() {
+    // construct table columns
+    this.tableColumns.push("duration", "createDate", "endDate", "info", "hashKey");
   }
 
   ngOnChanges(change: SimpleChanges) {
