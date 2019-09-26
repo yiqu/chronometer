@@ -40,15 +40,16 @@ export class LoginService {
   setUserData(data: User) {
     let userTimeData: UserData = new UserData();
     let timeDatas: TimeData[] = [];
+
     _.forOwn(data.data.time, (val: TimeData, key: string) => {
       let timeData: TimeData = new TimeData(val.duration, val.createDate, val.endDate, key, val.info);
       timeDatas.push(timeData);
-    })
+    });
+    
     userTimeData.setTime(timeDatas);
     this.userData = new User(data.user, data.admin, data.isUser, userTimeData, data.hashKey);
     // emit logged-in user
     this.currentUser$.next(this.userData);
-
   }
 
   getDefaultUser(): User {

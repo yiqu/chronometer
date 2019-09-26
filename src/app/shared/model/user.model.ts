@@ -4,7 +4,8 @@ import { TimeDataInformation, TimeData } from './data.model';
  * User model
  */
 export class User {
-  constructor(public user: UserInfo = null, 
+  constructor(
+    public user: UserInfo = null, 
     public admin: boolean = false, 
     public isUser: boolean = false,
     public data: UserData = new UserData(),
@@ -35,11 +36,14 @@ export class UserInfo {
 }
 
 export class UserData {
-  constructor(public time: TimeData[] = []) {
-    let infos: TimeDataInformation[] = [];
-    let info = new TimeDataInformation("Empty");
-    infos.push(info);
-    this.time.push(new TimeData(0, 0, 0, null, infos));
+  constructor(public time?: TimeData[]) {
+    if (!time) {
+      this.time = [];
+    }
+    // let infos: TimeDataInformation[] = [];
+    // let info = new TimeDataInformation("Empty");
+    // infos.push(info);
+    // this.time.push(new TimeData(0, 0, 0, null, infos));
   }
 
   setTime(data: TimeData[]) {

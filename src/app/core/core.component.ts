@@ -32,6 +32,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   timerStarted: boolean = false;
   currentUser: User;
   resetUserListener: Subject<any> = new Subject();
+  userHistory
 
   constructor(public ts: TimeService, private sb: MatSnackBar, public router: Router,
     public route: ActivatedRoute, public ls: LoginService, public ds: DataService) {
