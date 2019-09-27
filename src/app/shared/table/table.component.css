@@ -11,3 +11,10 @@ table {
   font-family: 'Roboto';
   font-size: 15px;
 }
+
+.sticky-header-row {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  min-height: 40px;
+}
