@@ -31,15 +31,16 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     console.log("table changes: ", this.dataSource)
     console.log("headers: ", this.headers)
     this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource);
-    this.triggerPaginator();
+    this.resetPaginator();
   }
 
   ngOnInit() {
-    this.triggerPaginator();
+    this.resetPaginator();
   }
 
-  triggerPaginator() {
+  resetPaginator() {
     this.tableDatasource.paginator = this.paginator;
+    this.paginator.firstPage();
   }
 
   ngOnDestroy() {

@@ -3,6 +3,8 @@ import { TableComponent } from './table.component';
 import { MaterialModule } from '../material-barrel.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CustomPaginator } from './table-config';
+import { MatPaginatorIntl } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -18,6 +20,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     TableComponent
   ],
-  providers: [],
+  providers: [
+    { provide: MatPaginatorIntl, useValue: CustomPaginator() }
+  ]
 })
 export class SharedTableModule { }

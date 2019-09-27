@@ -22,3 +22,9 @@
 .reset-lap { 
   margin-left: 1px;
 }
+
+.bottom-sticky {
+  position: sticky;
+  bottom: 20rem;
+  align-self: flex-end;
+}
