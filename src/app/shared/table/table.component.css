@@ -12,9 +12,15 @@ table {
   font-size: 15px;
 }
 
-.sticky-header-row {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  min-height: 40px;
+.table-container {
+  /* display: flex;
+  flex-direction: column; */
+  min-width: 400px;
+  height: 400px;
+  overflow: auto;
+}
+
+.mat-header-row.header-row {
+  background-color: #ccc;
+  color: #000;
 }

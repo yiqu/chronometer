@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
 export class LoadingComponent implements OnInit {
 
-  loadingImgUrl: string = "assets/finish-line.png";
+  loadingImgUrl: string = "assets/calligraphy.png";
 
 
   constructor() { }

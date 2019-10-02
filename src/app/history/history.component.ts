@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Input, Output, OnChanges, SimpleChanges,
   ChangeDetectionStrategy } from '@angular/core';
 import { List } from 'immutable';
-import { TimeData, TimeDataInformation } from '../shared/model/data.model';
+import { TimeData, TimeDataInformation, TimeTableHeader } from '../shared/model/data.model';
 import * as UTILS from '../shared/utils/general.utils';
 import { UserData } from '../shared/model/user.model';
 
@@ -18,11 +18,12 @@ export class HistoryComponent implements OnInit, OnDestroy, OnChanges {
   timeData: UserData;
 
   tableData: any;
-  tableColumns: string[] = [];
+  tableColumns: TimeTableHeader[] = [];
 
   constructor() {
-    // construct table columns
-    this.tableColumns.push("duration", "createDate", "endDate", "info", "hashKey");
+    this.tableColumns.push(new TimeTableHeader("duration", "Duration"), new TimeTableHeader("createDate", "Created"), 
+      new TimeTableHeader("endDate", "Ended"), new TimeTableHeader("info", "Info"), 
+      new TimeTableHeader("hashKey", "Hash Key"))
   }
 
   ngOnChanges(change: SimpleChanges) {
