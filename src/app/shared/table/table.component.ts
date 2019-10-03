@@ -31,7 +31,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     console.log("table changes: ", this.dataSource)
     console.log("headers: ", this.tableHeaders)
-    
+
     this.createColumnDisplay();
     this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource);
     this.resetPaginator();
@@ -53,8 +53,8 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
     this.paginator.firstPage();
   }
 
-  onRowClick() {
-    
+  onRowClick(row) {
+    console.log(row)
   }
 
   ngOnDestroy() {
