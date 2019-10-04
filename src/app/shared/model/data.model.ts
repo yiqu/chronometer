@@ -19,7 +19,12 @@ export class TimeDataInformation {
   }
 }
 
-export interface TimeTableHeader {
+export interface ITimeTableHeader {
   id: string;
   display: string;
+}
+
+export class TimeTableHeader implements ITimeTableHeader{
+  constructor(public id: string, public display: string) {
+  }
 }

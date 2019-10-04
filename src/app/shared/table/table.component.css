@@ -1,3 +1,31 @@
 table {
   width: 100%;
 }
+
+.wider-column {
+  min-width: 300px;
+}
+
+.table-header-cell {
+  font-weight: 700;
+  font-family: 'Kalam';
+  font-size: 15px;
+}
+
+.table-container {
+  /* display: flex;
+  flex-direction: column; */
+  height: 55vh;
+  overflow: auto;
+}
+
+.mat-header-row.header-row {
+  background-color: #ccc;
+  color: #000;
+}
+
+.mat-paginator-sticky {
+  bottom: 0px;
+  position: sticky;
+  z-index: 10;
+}

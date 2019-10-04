@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     
     <!-- Timer side -->
-    <div class="col mt-5">
+    <div class="col mt-5 bottom-sticky">
       <h1 class="font-secondary center-text">Ready, set...</h1>
       <div>
         <div class="row text-center">
           <div class="col">
-            <span class="time-display font-roboto" [rainbow]="timerStarted">{{timerInMilli | timeFormat}}</span>
+            <span class="time-display font-secondary" [rainbow]="timerStarted">{{timerInMilli | timeFormat}}</span>
           </div>
         </div>
         <div class="row justify-content-center">
