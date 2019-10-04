@@ -21,8 +21,8 @@ export class HistoryComponent implements OnInit, OnDestroy, OnChanges {
   tableColumns: TimeTableHeader[] = [];
 
   constructor() {
-    this.tableColumns.push(new TimeTableHeader("duration", "Duration"), new TimeTableHeader("createDate", "Created"), 
-      new TimeTableHeader("endDate", "Ended"), new TimeTableHeader("info", "Info"), 
+    this.tableColumns.push(new TimeTableHeader("duration", "Duration"), new TimeTableHeader("createDate", "Start Date"), 
+      new TimeTableHeader("endDate", "End Date"), new TimeTableHeader("info", "Info"), 
       new TimeTableHeader("hashKey", "Hash Key"))
   }
 

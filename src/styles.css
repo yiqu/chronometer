@@ -16,11 +16,11 @@ h1 {
 }
 
 .font-roboto {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif !important;
 }
 
 .font-secondary {
-  font-family: 'Kalam', cursive;
+  font-family: 'Kalam', cursive !important;
 }
 
 .font-20 {
