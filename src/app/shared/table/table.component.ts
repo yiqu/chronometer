@@ -1,13 +1,15 @@
 import { Component, OnInit, Input, OnChanges, OnDestroy, SimpleChanges, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { TimeData, TimeDataInformation, ITimeTableHeader } from '../model/data.model';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { rowsAnimation } from '../animations/animations';
 
 @Component({
   selector: 'app-table',
   templateUrl: 'table.component.html',
   styleUrls: ['./table.component.css'],
   //changeDetection: ChangeDetectionStrategy.OnPush
+  animations: [rowsAnimation]
 })
 
 export class TableComponent implements OnInit, OnChanges, OnDestroy {
@@ -30,10 +32,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("table changes: ", this.dataSource)
-    console.log("headers: ", this.tableHeaders)
+    //console.log("headers: ", this.tableHeaders)
 
     this.createColumnDisplay();
-    this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource);
+    this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource.reverse());
     this.resetPaginator();
   }
 
@@ -55,6 +57,10 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   onRowClick(row) {
     console.log(row)
+  }
+
+  onPage(page: PageEvent) {
+    console.log(page)
   }
 
   ngOnDestroy() {

@@ -9,9 +9,9 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" class="header-row"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+    <tr mat-row [@rowsAnimation]="" *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[6, 10, 15]" showFirstLastButtons pageSize="6"
-    class="mat-paginator-sticky font-secondary"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[7, 10, 15, 50]" showFirstLastButtons pageSize="7"
+    class="mat-paginator-sticky font-secondary" (page)="onPage($event)"></mat-paginator>
 </div>
