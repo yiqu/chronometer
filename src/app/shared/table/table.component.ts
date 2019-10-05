@@ -2,14 +2,14 @@ import { Component, OnInit, Input, OnChanges, OnDestroy, SimpleChanges, ViewChil
 import { TimeData, TimeDataInformation, ITimeTableHeader } from '../model/data.model';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { rowsAnimation } from '../animations/animations';
+import { rowsAnimation, rowsAnimation2 } from '../animations/animations';
 
 @Component({
   selector: 'app-table',
   templateUrl: 'table.component.html',
   styleUrls: ['./table.component.css'],
   //changeDetection: ChangeDetectionStrategy.OnPush
-  animations: [rowsAnimation]
+  animations: [rowsAnimation2]
 })
 
 export class TableComponent implements OnInit, OnChanges, OnDestroy {
@@ -23,6 +23,9 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   @Input('tableHeaders')
   tableHeaders: ITimeTableHeader[];
 
+  rowFadeInTime: string = "0.4s";
+  rowFadeOutTime: string = "0.2s";
+  
   displayedColumns: string[];
   tableDatasource = new MatTableDataSource<TimeData>();
 
