@@ -25,7 +25,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   rowFadeInTime: string = "0.4s";
   rowFadeOutTime: string = "0.2s";
-  
+
   displayedColumns: string[];
   tableDatasource = new MatTableDataSource<TimeData>();
 
@@ -36,7 +36,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   ngOnChanges(changes: SimpleChanges) {
     console.log("table changes: ", this.dataSource)
     //console.log("headers: ", this.tableHeaders)
-
+    
     this.createColumnDisplay();
     this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource.reverse());
     this.resetPaginator();

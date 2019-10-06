@@ -24,6 +24,7 @@ export const fadedOut: AnimationStyleMetadata = style(
   { height: '*', opacity: '0', transform: 'translateX(-550px)', 'box-shadow': 'none' }
 );
 
+
 /**
  * States: 'added'
  * Added state has the style defined, and transition from void (nothing on screen) to
