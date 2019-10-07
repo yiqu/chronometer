@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AnimationEvent, trigger, transition, useAnimation } from '@angular/animations';
 import { TimeService } from '../shared/services/time.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject, from, of, Subscription, interval, timer } from 'rxjs';
@@ -11,6 +12,7 @@ import { TimeData, TimeDataInformation } from '../shared/model/data.model';
 import { LoginService } from '../shared/services/login.service';
 import { DataService } from '../shared/services/data.service';
 import { User } from '../shared/model/user.model';
+import { tada, fadeIn, bounce, flash } from 'ng-animate';
 
 const TIMER_START: string = "Start";
 const TIMER_STOP: string = "Stop";
@@ -19,7 +21,15 @@ const USER_PARAM_KEY: string = "user";
 @Component({
   selector: 'app-core',
   templateUrl: 'core.component.html',
-  styleUrls: ['./core.component.css']
+  styleUrls: ['./core.component.css'],
+  animations: [
+    trigger('lapAnime', [
+      transition('void => afterview', useAnimation(fadeIn)),
+      transition('afterview => lap', useAnimation(tada)),
+      transition('* => stop', useAnimation(bounce)),
+      transition('* => reset', useAnimation(flash)),
+    ]),
+  ]
 })
 
 export class CoreComponent implements OnInit, OnDestroy {
@@ -32,7 +42,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   timerStarted: boolean = false;
   currentUser: User;
   resetUserListener: Subject<any> = new Subject();
-  userHistory
+  tickerAnimateState: string;
 
   constructor(public ts: TimeService, private sb: MatSnackBar, public router: Router,
     public route: ActivatedRoute, public ls: LoginService, public ds: DataService) {
@@ -67,6 +77,8 @@ export class CoreComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+    this.tickerAnimateState = 'afterview';
   }
 
   ngOnDestroy() {
@@ -97,6 +109,7 @@ export class CoreComponent implements OnInit, OnDestroy {
       // stopping timer
       this.timerSub.unsubscribe();
       this.resetLapText = "Reset";
+      this.tickerAnimateState = 'stop';
     }
   }
 
@@ -105,9 +118,10 @@ export class CoreComponent implements OnInit, OnDestroy {
     if (this.timerStarted) {
       let time = new TimeData(this.timerInMilli, 0, new Date().getTime(), null);
       this.ds.timeSaved$.next(time);
-
+      this.tickerAnimateState = 'lap';
     } else {
       this.resetTimer();
+      this.tickerAnimateState = 'reset';
     }
     
   }
@@ -125,6 +139,10 @@ export class CoreComponent implements OnInit, OnDestroy {
 
   handleTimerComplete() {
     console.log("interval completed");
+  }
+
+  onLapAnimeComplete(event: AnimationEvent) {
+    this.tickerAnimateState = 'afterview';
   }
 
   openSnackBar() {

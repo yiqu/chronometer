@@ -3,6 +3,7 @@ import { TimeData, TimeDataInformation, ITimeTableHeader } from '../model/data.m
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { rowsAnimation, rowsAnimation2 } from '../animations/animations';
+import { AnimationEvent } from '@angular/animations';
 
 @Component({
   selector: 'app-table',
@@ -28,6 +29,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   displayedColumns: string[];
   tableDatasource = new MatTableDataSource<TimeData>();
+  pagingInAction: boolean = false;
 
   constructor() {
     this.displayedColumns = [];
@@ -64,6 +66,12 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   onPage(page: PageEvent) {
     console.log(page)
+    this.pagingInAction = true;
+
+  }
+
+  rowAnimationEnd(event: AnimationEvent) {
+    this.pagingInAction = false;
   }
 
   ngOnDestroy() {
