@@ -9,9 +9,17 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" class="header-row"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+
+    <!-- Animation will only trigger for first row and NOT paging, thus creating the effect of
+    a row inserted from the left when time is lapped and added to the table -->
+    <tr mat-row 
+      [@recordInsertAnime]="{value: ((isFirst && !pagingInAction)? 'added' : null), 
+        params: { fadeOutTime: rowFadeOutTime, fadeInTime: rowFadeInTime}}"
+      (@recordInsertAnime.done)="rowAnimationEnd($event)"
+      *matRowDef="let row; columns: displayedColumns; first as isFirst" 
+      (click)="onRowClick(row)"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[6, 10, 15]" showFirstLastButtons pageSize="6"
-    class="mat-paginator-sticky font-secondary"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[7, 10, 15, 50]" showFirstLastButtons pageSize="7"
+    class="mat-paginator-sticky font-secondary" (page)="onPage($event)"></mat-paginator>
 </div>

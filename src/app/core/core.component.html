@@ -2,12 +2,17 @@
   <div class="row">
     
     <!-- Timer side -->
-    <div class="col mt-5 bottom-sticky">
+    <div class="col mt-5">
       <h1 class="font-secondary center-text">Ready, set...</h1>
       <div>
         <div class="row text-center">
           <div class="col">
-            <span class="time-display font-secondary" [rainbow]="timerStarted">{{timerInMilli | timeFormat}}</span>
+            <div class="time-display font-secondary" [@lapAnime]="{value: tickerAnimateState, 
+              params: {timing: '0.5'}}"
+              (@lapAnime.done)="onLapAnimeComplete($event)"
+              [rainbow]="timerStarted">
+              {{timerInMilli | timeFormat}}
+            </div>
           </div>
         </div>
         <div class="row justify-content-center">
