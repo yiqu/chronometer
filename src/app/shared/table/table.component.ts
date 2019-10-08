@@ -70,8 +70,16 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
+  /**
+   * Delay hack to prevent pagingInAction flag to go False to quick before animation
+   * could kick in.
+   * @param event 
+   */
   rowAnimationEnd(event: AnimationEvent) {
-    this.pagingInAction = false;
+    setTimeout(() => {
+      this.pagingInAction = false;
+    }, 200);
+    
   }
 
   ngOnDestroy() {
