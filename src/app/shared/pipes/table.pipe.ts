@@ -12,7 +12,8 @@ export class TableColumnHeaderPipe implements PipeTransform {
     let result: string;
     switch(columnId) {
       case "duration": {
-        result = value + "s";
+        console.log(+value)
+        result = this.convertToTimeFormat(value);
         break;
       }
       case "createDate": {
@@ -38,5 +39,13 @@ export class TableColumnHeaderPipe implements PipeTransform {
     }
 
     return result;
+  }
+
+  convertToTimeFormat(sec: number): string {
+    const dur: moment.Duration = moment.duration(sec, "s");
+    const seconds: string = ("" + dur.seconds()).padStart(2, "0");
+    const minutes: string = ("" + dur.minutes()).padStart(2, "0");
+    const hours: string = ("" + dur.hours()).padStart(2, "0");
+    return hours + ":" + minutes + ":" + seconds;
   }
 }
