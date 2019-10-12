@@ -17,11 +17,11 @@ export class TableColumnHeaderPipe implements PipeTransform {
         break;
       }
       case "createDate": {
-
+        result = this.convertToDataFormat(value);
         break;
       }
       case "endDate": {
-
+        result = this.convertToDataFormat(value);
         break;
       }
       case "info": {
@@ -47,5 +47,10 @@ export class TableColumnHeaderPipe implements PipeTransform {
     const minutes: string = ("" + dur.minutes()).padStart(2, "0");
     const hours: string = ("" + dur.hours()).padStart(2, "0");
     return hours + ":" + minutes + ":" + seconds;
+  }
+
+  convertToDataFormat(milli: number): string {
+    const date = moment.utc(milli).format("MM/DD/YY HH:mm:ss");
+    return date;
   }
 }
