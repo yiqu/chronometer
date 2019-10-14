@@ -29,7 +29,7 @@ export class TableColumnHeaderPipe implements PipeTransform {
         break;
       }
       case "hashKey": {
-
+        result = this.shortenString(value);
         break;
       }
 
@@ -52,5 +52,11 @@ export class TableColumnHeaderPipe implements PipeTransform {
   convertToDataFormat(milli: number): string {
     const date = moment.utc(milli).format("MM/DD/YY HH:mm:ss");
     return date;
+  }
+
+  shortenString(val: string) {
+    const first = val.slice(0,3);
+    const last = val.slice(-4);
+    return first + ".." +  last;
   }
 }
