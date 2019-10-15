@@ -37,15 +37,21 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnChanges(changes: SimpleChanges) {
     console.log("table changes: ", this.dataSource)
-    //console.log("headers: ", this.tableHeaders)
-    
     this.createColumnDisplay();
-    this.tableDatasource = new MatTableDataSource<TimeData>(this.dataSource.reverse());
+    this.tableDatasource = this.checkDataSourceValid(this.dataSource);
     this.resetPaginator();
   }
 
   ngOnInit() {
     this.resetPaginator();
+  }
+  
+  checkDataSourceValid(ds: any[]) {
+    if (ds && ds.length > 0 && ds.length === 1 && ds[0]['hashKey'] === null) {
+      return new MatTableDataSource<TimeData>([]);
+    }
+    //ds.splice(0, 1);
+    return new MatTableDataSource<TimeData>(ds.reverse());
   }
 
   createColumnDisplay() {
@@ -67,7 +73,6 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   onPage(page: PageEvent) {
     console.log(page)
     this.pagingInAction = true;
-
   }
 
   /**
@@ -78,7 +83,7 @@ export class TableComponent implements OnInit, OnChanges, OnDestroy {
   rowAnimationEnd(event: AnimationEvent) {
     setTimeout(() => {
       this.pagingInAction = false;
-    }, 200);
+    }, 300);
     
   }
 

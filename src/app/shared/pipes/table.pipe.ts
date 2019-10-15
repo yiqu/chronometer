@@ -12,7 +12,6 @@ export class TableColumnHeaderPipe implements PipeTransform {
     let result: string;
     switch(columnId) {
       case "duration": {
-        console.log(+value)
         result = this.convertToTimeFormat(value);
         break;
       }

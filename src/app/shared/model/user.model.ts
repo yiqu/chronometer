@@ -50,3 +50,7 @@ export class UserData {
     this.time = data;
   }
 }
+
+export interface IUserResponse {
+  name: string
+}

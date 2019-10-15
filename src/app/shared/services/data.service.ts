@@ -28,7 +28,7 @@ export class DataService {
         return empty();
       }),
       tap((res: HttpResponse<TimeData>) => {
-        this.ts.toastrConfig.timeOut = 1000;
+        this.ts.toastrConfig.timeOut = 750;
         this.ts.success("Hash key: " + res.body['name'], "Saved")
       }),
       debounceTime(1000),
@@ -38,7 +38,7 @@ export class DataService {
     ).subscribe({
       next: (res: HttpResponse<User>) => {
         // need to re-append the hashkey to the new response
-        res.body['hashKey'] = this.ls.userData.hashKey;
+        res.body.hashKey = this.ls.userData.hashKey;
         this.ls.setUserData(res.body);
       },
       error: (err) => {

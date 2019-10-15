@@ -1,7 +1,7 @@
 <div>
   <h1 class="font-secondary center-text">History</h1>
 
-  <div *ngIf="timeData.time.length > 0; else noData">
+  <div *ngIf="timeData.time.length > 1; else noData">
     <app-table [tableData]="timeData.time" [tableHeaders]="tableColumns"></app-table>
   </div>
   
