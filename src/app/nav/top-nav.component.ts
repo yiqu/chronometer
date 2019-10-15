@@ -76,7 +76,7 @@ export class NavBarComponent implements OnInit {
       data: this.currentUser
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: User) => {
       this.ls.userLogin(result);
     });
   }

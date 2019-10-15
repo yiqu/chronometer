@@ -9,7 +9,7 @@ import { empty, of, throwError, fromEvent, Subscription, Subject,
   Observer } from 'rxjs';
 import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { User, UserInfo } from '../../model/user.model';
+import { User, UserInfo, IUserResponse } from '../../model/user.model';
 import { CrudRestServie } from '../../../shared/services/crud.service';
 import { LoginService } from '../../services/login.service';
 import * as UTILS from '../../utils/general.utils'
@@ -102,7 +102,6 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
     )
     .subscribe(
       (res: HttpResponse<any>) => {
-        this.loginRequesting = false;
         this.updateRegisterText();
         this.converCurrentUser();
         let alreadyExist: boolean = false;
@@ -119,6 +118,7 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
           this.userConfirmation$.next(alreadyExist ? null : this.currentUser);
         } else {
           this.ts.error("Server returned NULL." + res.body, "Error");
+          this.loginRequesting = false;
         }
       },
       (err) => {
@@ -227,8 +227,10 @@ export class LoginDialogComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getUserCreatedObserver(): Observer<HttpResponse<any>> {
     return {
-      next: (res: HttpResponse<any>) => {
+      next: (res: HttpResponse<IUserResponse>) => {
         this.ts.success("User created! " + res.body.name, "Welcome");
+        this.currentUser.hashKey = res.body.name;
+        this.loginRequesting = false;
         this.closeAndSetUser(this.currentUser);
       },
       error: (err: any) => {
