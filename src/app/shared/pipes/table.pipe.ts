@@ -55,8 +55,11 @@ export class TableColumnHeaderPipe implements PipeTransform {
   }
 
   shortenString(val: string) {
-    const first = val.slice(0,3);
-    const last = val.slice(-4);
-    return first + ".." +  last;
+    if (val) {
+      const first = val.slice(0,3);
+      const last = val.slice(-4);
+      return first + ".." +  last;
+    }
+    return "NONE";
   }
 }
