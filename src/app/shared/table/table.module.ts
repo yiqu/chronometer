@@ -5,12 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CustomPaginator } from './table-config';
 import { MatPaginatorIntl } from '@angular/material';
+import { PipesBarrelModule } from '../pipes/pipes-barrel.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    PipesBarrelModule
   ],
 
   exports: [

@@ -3,9 +3,11 @@
 
     <ng-container *ngFor="let column of tableHeaders" [matColumnDef]="column.id">
       <!-- TABLE HEADERS DISPLAY -->
-      <th mat-header-cell *matHeaderCellDef [ngClass]="{'table-header-cell':true}"> {{column.display}}  </th>
+      <th mat-header-cell *matHeaderCellDef [ngClass]="{'table-header-cell':true}"> {{column.display}} </th>
       <!-- COLUMN DISPLAY -->
-      <td mat-cell *matCellDef="let element"> {{element[column.id]}} </td>
+      <td mat-cell *matCellDef="let element" [ngClass]="column.id">
+        {{element[column.id] | columnHeader:column.id}}
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true" class="header-row"></tr>
@@ -13,7 +15,7 @@
     <!-- Animation will only trigger for first row and NOT paging, thus creating the effect of
     a row inserted from the left when time is lapped and added to the table -->
     <tr mat-row 
-      [@recordInsertAnime]="{value: ((isFirst && !pagingInAction)? 'added' : null), 
+      [@recordInsertAnime]="{value: ( pagingInAction ? 'added' : ((isFirst && !pagingInAction)? 'added' : null) ), 
         params: { fadeOutTime: rowFadeOutTime, fadeInTime: rowFadeInTime}}"
       (@recordInsertAnime.done)="rowAnimationEnd($event)"
       *matRowDef="let row; columns: displayedColumns; first as isFirst" 
